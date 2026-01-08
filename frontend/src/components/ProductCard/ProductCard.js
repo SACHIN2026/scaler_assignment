@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { addToCart, checkWishlistStatus as checkWishlistAPI, addToWishlist, removeFromWishlist } from '../../services/api';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
@@ -21,15 +21,15 @@ const ProductCard = ({ product }) => {
 
   const checkWishlistStatus = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/wishlist/1/check/${product.id}`);
-      setIsInWishlist(response.data.isInWishlist);
+      const response = await checkWishlistAPI(1, product.id);
+      setIsInWishlist(response.isInWishlist);
     } catch (error) {
       console.error('Error checking wishlist status:', error);
     }
   };
 
   const toggleWishlist = async (e) => {
-    e.preventDefault(); // Prevent navigation to product detail
+    e.preventDefault();
     e.stopPropagation();
     
     if (loading) return;
@@ -38,13 +38,10 @@ const ProductCard = ({ product }) => {
     
     try {
       if (isInWishlist) {
-        await axios.delete(`http://localhost:5000/api/wishlist/1/${product.id}`);
+        await removeFromWishlist(1, product.id);
         setIsInWishlist(false);
       } else {
-        await axios.post('http://localhost:5000/api/wishlist', {
-          userId: 1,
-          productId: product.id
-        });
+        await addToWishlist(1, product.id);
         setIsInWishlist(true);
       }
     } catch (error) {

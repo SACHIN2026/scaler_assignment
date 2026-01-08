@@ -65,3 +65,26 @@ export const getUserOrders = async () => {
   const response = await axios.get(`${API_BASE_URL}/orders`);
   return response.data;
 };
+
+export const getWishlist = async (userId = 1) => {
+  const response = await axios.get(`${API_BASE_URL}/wishlist/${userId}`);
+  return response.data;
+};
+
+export const addToWishlist = async (userId = 1, productId) => {
+  const response = await axios.post(`${API_BASE_URL}/wishlist`, {
+    userId,
+    productId
+  });
+  return response.data;
+};
+
+export const removeFromWishlist = async (userId = 1, productId) => {
+  const response = await axios.delete(`${API_BASE_URL}/wishlist/${userId}/${productId}`);
+  return response.data;
+};
+
+export const checkWishlistStatus = async (userId = 1, productId) => {
+  const response = await axios.get(`${API_BASE_URL}/wishlist/${userId}/check/${productId}`);
+  return response.data;
+};

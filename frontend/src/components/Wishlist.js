@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getWishlist, removeFromWishlist, addToCart } from '../services/api';
 import './Wishlist.css';
 
 function Wishlist() {
@@ -13,8 +13,8 @@ function Wishlist() {
 
     const fetchWishlist = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/wishlist/1'); // Default user_id = 1
-            setWishlistItems(response.data);
+            const data = await getWishlist(1);
+            setWishlistItems(data);
         } catch (error) {
             console.error('Error fetching wishlist:', error);
         } finally {
@@ -22,21 +22,18 @@ function Wishlist() {
         }
     };
 
-    const removeFromWishlist = async (productId) => {
+    const removeFromWishlistHandler = async (productId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/wishlist/1/${productId}`);
+            await removeFromWishlist(1, productId);
             setWishlistItems(wishlistItems.filter(item => item.product_id !== productId));
         } catch (error) {
             console.error('Error removing from wishlist:', error);
         }
     };
 
-    const addToCart = async (product) => {
+    const addToCartHandler = async (product) => {
         try {
-            await axios.post('http://localhost:5000/api/cart', {
-                product_id: product.id,
-                quantity: 1
-            });
+            await addToCart(product.id, 1);
             alert('Product added to cart!');
         } catch (error) {
             console.error('Error adding to cart:', error);
@@ -92,14 +89,14 @@ function Wishlist() {
                         <div className="item-actions">
                             <button 
                                 className="add-to-cart-btn"
-                                onClick={() => addToCart(item)}
+                                onClick={() => addToCartHandler(item)}
                             >
                                 Add to Cart
                             </button>
                             
                             <button 
                                 className="remove-btn"
-                                onClick={() => removeFromWishlist(item.product_id)}
+                                onClick={() => removeFromWishlistHandler(item.product_id)}
                             >
                                 Remove
                             </button>
