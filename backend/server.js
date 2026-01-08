@@ -14,7 +14,16 @@ const wishlistRoutes = require('./routes/wishlistRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://scaler-assignment-git-main-gtasach01-gmailcoms-projects.vercel.app',
+    'https://scaler-assignment-lnudh0ae0-gtasach01-gmailcoms-projects.vercel.app',
+    /https:\/\/.*\.vercel\.app$/
+  ],
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
