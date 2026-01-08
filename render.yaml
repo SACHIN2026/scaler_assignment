@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: flipkart-clone-backend
+    runtime: node
+    buildCommand: cd backend && npm install && echo 'Build complete'
+    startCommand: cd backend && npm start
+    plan: free
+    env: node

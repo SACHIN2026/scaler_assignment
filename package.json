@@ -1,0 +1,14 @@
+{
+  "name": "scaler-assignment",
+  "version": "1.0.0",
+  "description": "Flipkart Clone E-Commerce Platform",
+  "scripts": {
+    "build": "cd backend && npm install && echo 'Backend build complete'",
+    "start": "cd backend && npm start",
+    "backend": "cd backend && npm start",
+    "frontend": "cd frontend && npm start"
+  },
+  "keywords": ["ecommerce", "flipkart", "fullstack"],
+  "author": "",
+  "license": "ISC"
+}
