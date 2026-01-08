@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 require('dotenv').config();
-
+//all these are for demo use only for production will use .env secrets
 const pool = mysql.createPool({
   host: '9aac0z.h.filess.io',
   port: 3307,
