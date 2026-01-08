@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://scaler-assignment-1.onrender.com/api';
 
-// Products
 export const getProducts = async (filters = {}) => {
   const params = new URLSearchParams();
   if (filters.search) params.append('search', filters.search);
@@ -17,13 +16,11 @@ export const getProductById = async (id) => {
   return response.data;
 };
 
-// Categories
 export const getCategories = async () => {
   const response = await axios.get(`${API_BASE_URL}/categories`);
   return response.data;
 };
 
-// Cart
 export const getCart = async () => {
   const response = await axios.get(`${API_BASE_URL}/cart`);
   return response.data;
@@ -54,7 +51,6 @@ export const clearCart = async () => {
   return response.data;
 };
 
-// Orders
 export const createOrder = async (orderData) => {
   const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
   return response.data;

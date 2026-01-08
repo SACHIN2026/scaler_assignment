@@ -21,7 +21,6 @@ exports.getProductById = async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
     
-    // Parse JSON fields
     if (product.images) {
       product.images = JSON.parse(product.images);
     }

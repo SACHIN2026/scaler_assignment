@@ -1,7 +1,6 @@
 const mysql = require('mysql2');
 require('dotenv').config();
 
-// Create MySQL connection pool
 const pool = mysql.createPool({
   host: '9aac0z.h.filess.io',
   port: 3307,
@@ -17,11 +16,9 @@ const pool = mysql.createPool({
 
 console.log('Connected to MySQL database');
 
-// Initialize database tables synchronously
 function initializeDatabase() {
   return new Promise((resolve, reject) => {
     const queries = [
-      // Categories Table
       `CREATE TABLE IF NOT EXISTS categories (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -29,7 +26,6 @@ function initializeDatabase() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       
-      // Products Table
       `CREATE TABLE IF NOT EXISTS products (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -49,7 +45,6 @@ function initializeDatabase() {
         INDEX idx_category (category_id)
       )`,
       
-      // Cart Table
       `CREATE TABLE IF NOT EXISTS cart (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT DEFAULT 1,
@@ -60,7 +55,6 @@ function initializeDatabase() {
         UNIQUE KEY unique_user_product (user_id, product_id)
       )`,
       
-      // Orders Table
       `CREATE TABLE IF NOT EXISTS orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT DEFAULT 1,
@@ -74,7 +68,6 @@ function initializeDatabase() {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )`,
       
-      // Order Items Table
       `CREATE TABLE IF NOT EXISTS order_items (
         id INT AUTO_INCREMENT PRIMARY KEY,
         order_id INT NOT NULL,
@@ -84,7 +77,6 @@ function initializeDatabase() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       
-      // Users Table (bonus feature)
       `CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(100) UNIQUE NOT NULL,
@@ -96,7 +88,6 @@ function initializeDatabase() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       
-      // Wishlist Table
       `CREATE TABLE IF NOT EXISTS wishlist (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT DEFAULT 1,
