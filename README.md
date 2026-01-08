@@ -186,7 +186,7 @@ Frontend will run on `http://localhost:3000`
 - `GET /api/orders/number/:orderNumber` - Get order by order number
 
 
-## 📝 Assumptions Made
+## Assumptions Made
 
 1. **User Authentication**: 
    - Assumed a default user is logged in (user_id: 1)
